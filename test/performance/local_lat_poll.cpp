@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <zmq.h>
-#include <zmq_utils.h>
+//#include <zmq_utils.h>
 
 int main(int argc, char* argv[])
 {
     const char* bind_to;
     int roundtrip_count;
-    size_t message_size;
+    // size_t message_size;
     void* ctx;
     void* s;
     int rc;
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
         return 1;
     }
     bind_to = argv[1];
-    message_size = atoi(argv[2]);
+    // size_t message_size = atoi(argv[2]);
     roundtrip_count = atoi(argv[3]);
 
     ctx = zmq_init(1);

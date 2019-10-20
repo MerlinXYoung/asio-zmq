@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     }
 
     std::string const ep = argv[1];
-    int message_size = std::atoi(argv[2]);
+    // int message_size = std::atoi(argv[2]);
     int roundtrip_count = std::atoi(argv[3]);
 
     boost::asio::io_service ios;
