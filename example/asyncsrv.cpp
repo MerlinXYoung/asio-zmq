@@ -215,13 +215,13 @@ int main()
     broker.start();
 
     std::vector<std::unique_ptr<client_task>> clients(client_amount);
-    for (int i = 0; i < clients.size(); ++i) {
+    for (size_t i = 0; i < clients.size(); ++i) {
         clients[i].reset(new client_task(ios, ctx, i));
         clients[i]->start();
     }
 
     std::vector<std::unique_ptr<async_worker>> workers(worker_amount);
-    for (int i = 0; i < workers.size(); ++i) {
+    for (size_t i = 0; i < workers.size(); ++i) {
         workers[i].reset(new async_worker(ios, ctx, i));
         workers[i]->start();
     }
