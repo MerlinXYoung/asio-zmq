@@ -29,21 +29,31 @@ public:
     explicit frame() noexcept : raw_msg_() { zmq_msg_init(&raw_msg_); }
 
     ~frame() { zmq_msg_close(&raw_msg_); }
-
+#ifdef __ASIO_ZMQ_CONSTRUCT__
     frame(frame&& other) noexcept : frame() { zmq_msg_move(&raw_msg_, &other.raw_msg_); }
-
+#else
+    frame(frame&& other) noexcept : raw_msg_() { zmq_msg_init(&raw_msg_); zmq_msg_move(&raw_msg_, &other.raw_msg_); }
+#endif
     frame& operator=(frame&& other) noexcept
     {
         zmq_msg_move(&raw_msg_, &other.raw_msg_);
         return *this;
     }
-
+#ifdef __ASIO_ZMQ_CONSTRUCT__
     frame(frame const& other) : frame(other.size())
     {
         if (0 != zmq_msg_copy(&raw_msg_, const_cast<zmq_msg_t*>(&other.raw_msg_)))
             throw exception();
     }
-
+#else
+    frame(frame const& other) : raw_msg_()//frame(other.size())
+    {
+        if (0 != zmq_msg_init_size(&raw_msg_, other.size())) 
+            throw exception();
+        if (0 != zmq_msg_copy(&raw_msg_, const_cast<zmq_msg_t*>(&other.raw_msg_)))
+            throw exception();
+    }
+#endif
     explicit frame(std::string const& str) : frame(str.size())
     {
         std::copy(std::begin(str), std::end(str), static_cast<char*>(data()));

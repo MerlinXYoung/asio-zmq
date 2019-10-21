@@ -5,9 +5,13 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
-list(APPEND CMAKE_PREFIX_PATH "/usr/local/libzmq")
-find_package(Zmq REQUIRED)
-include_directories(${Zmq_INCLUDE_DIR})
+list(APPEND CMAKE_PREFIX_PATH "/usr/local/boost")
+#list(APPEND CMAKE_PREFIX_PATH "/usr/local/libzmq")
+#list(APPEND CMAKE_PREFIX_PATH "/usr/local/zeromq")
+#find_package(Zmq REQUIRED)
+#include_directories(${Zmq_INCLUDE_DIR})
+find_package(Zeromq REQUIRED)
+include_directories(${Zeromq_INCLUDE_DIR})
 
 add_subdirectory(example)
 
