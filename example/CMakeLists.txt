@@ -11,7 +11,7 @@ endif ()
 add_definitions(-DBOOST_ASIO_HAS_STD_CHRONO)
 
 find_package(Boost REQUIRED COMPONENTS system)
-find_library(ZMQ_LIBRARY zmq REQUIRED)
+# find_library(ZMQ_LIBRARY zmq REQUIRED)
 
 file(GLOB example_SRCS "*.cpp")
 
@@ -23,5 +23,5 @@ include_directories(
 foreach(SRC ${example_SRCS})
   get_filename_component(EXE ${SRC} NAME_WE)
   add_executable(${EXE} ${SRC})
-  target_link_libraries(${EXE} ${ZMQ_LIBRARY} ${Boost_LIBRARIES} pthread)
+  target_link_libraries(${EXE} ${Zeromq_LIBRARY} ${Boost_LIBRARIES} pthread)
 endforeach()
